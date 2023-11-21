@@ -2,6 +2,7 @@
 
 import 'package:cloudwalk_test/app/modules/home/widgets/image_item_list_widget.dart';
 import 'package:cloudwalk_test/app/shared/utils/app_colors.dart';
+import 'package:cloudwalk_test/app/shared/widgets/connectivity_status/connectivity_status_widget.dart';
 import 'package:cloudwalk_test/app/shared/widgets/loading_defautl_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
@@ -32,9 +33,15 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       backgroundColor: Colors.grey[300],
       appBar: AppBar(
-        title: const Text(
-          'NASA APOD',
-          style: TextStyle(color: Colors.white),
+        title: const Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              'NASA APOD',
+              style: TextStyle(color: Colors.white),
+            ),
+            ConnectivityStatusWidget()
+          ],
         ),
         backgroundColor: AppColors.primary,
       ),
