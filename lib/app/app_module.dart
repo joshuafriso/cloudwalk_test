@@ -1,3 +1,5 @@
+import 'package:cloudwalk_test/app/config/app_pages_routes.dart';
+import 'package:cloudwalk_test/app/modules/details/details_module.dart';
 import 'package:cloudwalk_test/app/shared/widgets/connectivity_status/connectivity_status_store.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
@@ -15,6 +17,7 @@ class AppModule extends Module {
 
   @override
   void routes(r) {
-    r.module("/", module: HomeModule());
+    r.module(AppPagesRoutes.home, module: HomeModule());
+    r.module(AppPagesRoutes.details, module: DetailsModule());
   }
 }

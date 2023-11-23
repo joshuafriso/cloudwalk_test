@@ -16,15 +16,21 @@ class ConnectivityStatusWidget extends StatefulWidget {
 class _ConnectivityStatusWidgetState extends State<ConnectivityStatusWidget> {
   late final ConnectivityStatusStore store;
   late final ReactionDisposer _statusConnectivity;
+  late final ReactionDisposer _checkConnectivity;
 
   @override
   void initState() {
     store = Modular.get<ConnectivityStatusStore>();
+    store.checkConnectivityStatus();
     super.initState();
   }
 
   @override
   void didChangeDependencies() {
+    _checkConnectivity =
+        reaction((_) => store.checkConnectivity.value, (result) {
+      store.changeStatus(result == ConnectivityResult.none);
+    });
     _statusConnectivity =
         reaction((_) => store.connectivityStream.value, (result) {
       store.changeStatus(result == ConnectivityResult.none);
@@ -35,6 +41,7 @@ class _ConnectivityStatusWidgetState extends State<ConnectivityStatusWidget> {
   @override
   void dispose() {
     _statusConnectivity;
+    _checkConnectivity;
     super.dispose();
   }
 
@@ -46,15 +53,16 @@ class _ConnectivityStatusWidgetState extends State<ConnectivityStatusWidget> {
           Icon(
             Icons.circle,
             size: 8,
-            color: store.status ? Colors.red : Colors.green,
+            color: store.noSignal ? Colors.red : Colors.green,
           ),
           const SizedBox(
             width: 8,
           ),
           Text(
-            store.status ? "Offline" : "Online",
+            store.noSignal ? "Offline" : "Online",
             style: TextStyle(
-                fontSize: 14, color: store.status ? Colors.red : Colors.green),
+                fontSize: 14,
+                color: store.noSignal ? Colors.red : Colors.green),
           )
         ],
       );

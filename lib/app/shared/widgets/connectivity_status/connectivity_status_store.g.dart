@@ -25,19 +25,35 @@ mixin _$ConnectivityStatusStore on ConnectivityStatusStoreBase, Store {
     });
   }
 
-  late final _$statusAtom =
-      Atom(name: 'ConnectivityStatusStoreBase.status', context: context);
+  late final _$checkConnectivityAtom = Atom(
+      name: 'ConnectivityStatusStoreBase.checkConnectivity', context: context);
 
   @override
-  bool get status {
-    _$statusAtom.reportRead();
-    return super.status;
+  ObservableFuture<ConnectivityResult> get checkConnectivity {
+    _$checkConnectivityAtom.reportRead();
+    return super.checkConnectivity;
   }
 
   @override
-  set status(bool value) {
-    _$statusAtom.reportWrite(value, super.status, () {
-      super.status = value;
+  set checkConnectivity(ObservableFuture<ConnectivityResult> value) {
+    _$checkConnectivityAtom.reportWrite(value, super.checkConnectivity, () {
+      super.checkConnectivity = value;
+    });
+  }
+
+  late final _$noSignalAtom =
+      Atom(name: 'ConnectivityStatusStoreBase.noSignal', context: context);
+
+  @override
+  bool get noSignal {
+    _$noSignalAtom.reportRead();
+    return super.noSignal;
+  }
+
+  @override
+  set noSignal(bool value) {
+    _$noSignalAtom.reportWrite(value, super.noSignal, () {
+      super.noSignal = value;
     });
   }
 
@@ -56,10 +72,23 @@ mixin _$ConnectivityStatusStore on ConnectivityStatusStoreBase, Store {
   }
 
   @override
+  void checkConnectivityStatus() {
+    final _$actionInfo =
+        _$ConnectivityStatusStoreBaseActionController.startAction(
+            name: 'ConnectivityStatusStoreBase.checkConnectivityStatus');
+    try {
+      return super.checkConnectivityStatus();
+    } finally {
+      _$ConnectivityStatusStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   String toString() {
     return '''
 connectivityStream: ${connectivityStream},
-status: ${status}
+checkConnectivity: ${checkConnectivity},
+noSignal: ${noSignal}
     ''';
   }
 }

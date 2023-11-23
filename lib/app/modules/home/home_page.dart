@@ -25,7 +25,7 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     super.initState();
     store = Modular.get<HomeStore>();
-    store.getData();
+    store.setupReactions();
   }
 
   @override
@@ -43,21 +43,45 @@ class _HomePageState extends State<HomePage> {
             ConnectivityStatusWidget()
           ],
         ),
+        bottom: PreferredSize(
+            preferredSize: const Size.fromHeight(50),
+            child: Container(
+              decoration: const BoxDecoration(color: Colors.white),
+              child: Observer(builder: (_) {
+                return TextField(
+                  onChanged: (value) => store.filterApodList(value),
+                  decoration: const InputDecoration(
+                      hintText: "Search",
+                      hintStyle: TextStyle(color: Colors.grey),
+                      prefixIcon: Icon(
+                        Icons.search,
+                        color: Colors.grey,
+                      )),
+                );
+              }),
+            )),
         backgroundColor: AppColors.primary,
       ),
       body: Observer(
         builder: (context) {
-          if (store.apodList == null) {
+          if (store.isLoadingData) {
             return const Center(
               child: LoadingDefautlWidget(),
             );
-          } else {
+          } else if (store.apodList != null) {
             return ListView.builder(
               padding: const EdgeInsets.all(16),
               itemCount: store.apodList!.length,
               itemBuilder: (context, index) {
-                return ImageItemListWidget(model: store.apodList![index]);
+                return GestureDetector(
+                    onTap: () => store.goToDetails(store.apodList![index]),
+                    child: ImageItemListWidget(model: store.apodList![index]));
               },
+            );
+          } else {
+            return const Center(
+              child:
+                  Text('Ops! I think you don\'t have internet or local data'),
             );
           }
         },

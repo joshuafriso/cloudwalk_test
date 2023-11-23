@@ -1,9 +1,20 @@
+import 'package:hive/hive.dart';
+
+part "nasa_apod_model.g.dart";
+
+@HiveType(typeId: 1)
 class NasaApodModel {
+  @HiveField(0)
   String? title;
+  @HiveField(1)
   String? date;
+  @HiveField(2)
   String? explanation;
+  @HiveField(3)
   String? imgUrl;
+  @HiveField(4)
   String? imgHdUrl;
+  @HiveField(5)
   String? mediaType;
 
   NasaApodModel(

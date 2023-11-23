@@ -12,11 +12,20 @@ abstract class ConnectivityStatusStoreBase with Store {
       ObservableStream(Connectivity().onConnectivityChanged);
 
   @observable
-  bool status = false;
+  ObservableFuture<ConnectivityResult> checkConnectivity =
+      ObservableFuture.value(ConnectivityResult.mobile);
+
+  @observable
+  bool noSignal = false;
 
   @action
   void changeStatus(bool value) {
-    status = value;
+    noSignal = value;
+  }
+
+  @action
+  void checkConnectivityStatus() {
+    checkConnectivity = Connectivity().checkConnectivity().asObservable();
   }
 
   void dispose() {}
