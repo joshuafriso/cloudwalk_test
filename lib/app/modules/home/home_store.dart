@@ -13,8 +13,8 @@ part 'home_store.g.dart';
 class HomeStore = HomeStoreBase with _$HomeStore;
 
 abstract class HomeStoreBase with Store {
-  final _repository = Modular.get<NasaApiRepository>();
-  final _dbRepository = Modular.get<NasaDbLocalRepository>();
+  final repository = Modular.get<NasaApiRepository>();
+  final dbRepository = Modular.get<NasaDbLocalRepository>();
   final connectivity = Modular.get<ConnectivityStatusStore>();
 
   List<NasaApodModel>? _staticList;
@@ -37,12 +37,12 @@ abstract class HomeStoreBase with Store {
     var today = DateTime.now();
     var formatter = DateFormat("yyyy-MM-dd");
     var startDate = formatter.format(today.subtract(const Duration(days: 30)));
-    response = _repository.getApodList(startDate.toString()).asObservable();
+    response = repository.getApodList(startDate.toString()).asObservable();
   }
 
   @action
   void getLocalData() {
-    response = _dbRepository.getList().asObservable();
+    response = dbRepository.getList().asObservable();
   }
 
   @action
@@ -50,8 +50,12 @@ abstract class HomeStoreBase with Store {
     List<NasaApodModel>? values = response.value;
     values!.sort((a, b) => b.date!.compareTo(a.date!));
     apodList = values;
-    _staticList = apodList;
-    _dbRepository.addAll(apodList!);
+    populateStaticList(apodList);
+    dbRepository.addAll(apodList!);
+  }
+
+  void populateStaticList(List<NasaApodModel>? list) {
+    _staticList = list;
   }
 
   @action
@@ -84,7 +88,7 @@ abstract class HomeStoreBase with Store {
     List<NasaApodModel>? result = [];
     if (value.isEmpty) {
       result = _staticList;
-    } else if (value.startsWith(RegExp(r'[a-z]'), 0)) {
+    } else if (value.toLowerCase().startsWith(RegExp(r'[a-z]'), 0)) {
       result = _staticList!
           .where((element) =>
               (element.title!.toLowerCase().contains(value.toLowerCase())))

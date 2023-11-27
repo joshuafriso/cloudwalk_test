@@ -7,6 +7,7 @@ class ConnectivityStatusStore = ConnectivityStatusStoreBase
     with _$ConnectivityStatusStore;
 
 abstract class ConnectivityStatusStoreBase with Store {
+  final Connectivity _connectivity;
   @observable
   ObservableStream<ConnectivityResult> connectivityStream =
       ObservableStream(Connectivity().onConnectivityChanged);
@@ -18,6 +19,9 @@ abstract class ConnectivityStatusStoreBase with Store {
   @observable
   bool noSignal = false;
 
+  ConnectivityStatusStoreBase({Connectivity? connectivity})
+      : _connectivity = connectivity ?? Connectivity();
+
   @action
   void changeStatus(bool value) {
     noSignal = value;
@@ -25,7 +29,7 @@ abstract class ConnectivityStatusStoreBase with Store {
 
   @action
   void checkConnectivityStatus() {
-    checkConnectivity = Connectivity().checkConnectivity().asObservable();
+    checkConnectivity = _connectivity.checkConnectivity().asObservable();
   }
 
   void dispose() {}

@@ -9,8 +9,8 @@
             "request": "launch",
             "type": "dart",
             "program": "lib/main.dart",
-            "args": [
-                "--dart-define=APIKEY=uCmUdXxv9lmZCuAdJH1Tc5Ud5GnMA8kNA2cyxeWN"
+            "toolArgs": [
+                "--dart-define-from-file", ".env"
             ]
         }
     ]

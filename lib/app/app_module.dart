@@ -7,12 +7,8 @@ import 'modules/home/home_module.dart';
 
 class AppModule extends Module {
   @override
-  void binds(i) {}
-
-  @override
-  void exportedBinds(Injector i) {
-    i.addSingleton(ConnectivityStatusStore.new);
-    super.exportedBinds(i);
+  void binds(i) {
+    i.addSingleton<ConnectivityStatusStore>(ConnectivityStatusStore.new);
   }
 
   @override
