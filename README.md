@@ -23,12 +23,14 @@ To run this project, you need to have the following installed on your machine:
 4. VS Code
 5. JDK 8+ for android development
 6. Gradle for android build tools
+7. Derry (https://pub.dev/packages/derry)
 
 ## Installation
 Clone or download this repository and open it in an IDE like Android Studio or Visual Studio Code. Make sure that all dependencies are properly set up before.<br>
 Then execute the following commands in order:<br>
 flutter pub get<br>
-After all the dependencies were got, press F5 to run the project
+After all the dependencies were got, press F5 to run the project<br>
+If you want to generate an apk use the command: derry build_apk
 
 # Usage
 The Home page contains an AppBar that has a connectivity indicator and a title, under the AppBar is a SearchBar where you can search by Title or Date, if search by date pay attention to the format that needs to be typed, for example: '2023-11-22',
