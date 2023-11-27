@@ -25,7 +25,7 @@ To run this project, you need to have the following installed on your machine:
 6. Gradle for android build tools
 
 ## Installation
-Clone or download this repository and open it in an IDE like Android Studio or Visual Studio Code. Make sure that all dependencies are properly set up before
+Clone or download this repository and open it in an IDE like Android Studio or Visual Studio Code. Make sure that all dependencies are properly set up before.
 Then execute the following commands in order:
 flutter pub get
 After all the dependencies were got, press F5 to run the project
