@@ -17,13 +17,14 @@ These instructions will get you a copy of the project up and running on your loc
 
 ## Prerequisites
 To run this project, you need to have the following installed on your machine:
-1. Flutter (https://docs.flutter.dev/get-started/install)
-2. Dart SDK (https://dart.dev/tools/sdk)
+1. Flutter 3.16.0 (https://docs.flutter.dev/get-started/install)
+2. Dart SDK 3.2.0 (https://dart.dev/tools/sdk)
 3. Android Studio
 4. VS Code
-5. JDK 8+ for android development
-6. Gradle for android build tools
-7. Derry (https://pub.dev/packages/derry)
+5. Flutter and Dart Plugins in VS Code and Android Studio installed
+6. JDK 8+ for android development
+7. Gradle for android build tools
+8. Derry (https://pub.dev/packages/derry)
 
 ## Installation
 Clone or download this repository and open it in an IDE like Android Studio or Visual Studio Code. Make sure that all dependencies are properly set up before.<br>
